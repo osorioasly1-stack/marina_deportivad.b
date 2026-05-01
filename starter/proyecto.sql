@@ -1,32 +1,33 @@
 
-CREATE TABLE owners (
+CREATE TABLE IF NOT EXISTS owners (
     owner_id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
-    email TEXT UNIQUE,
+    email TEXT UNIQUE NOT NULL,
     phone TEXT,
-    address TEXT
+    created_at DATE DEFAULT CURRENT_DATE
 );
-CREATE TABLE boats (
+
+CREATE TABLE IF NOT EXISTS boats (
     boat_id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
-    type TEXT,
-    length REAL,
+    type TEXT NOT NULL,
+    length REAL NOT NULL CHECK(length > 0),
     owner_id INTEGER NOT NULL,
+    status TEXT DEFAULT 'active' CHECK(status IN ('active', 'maintenance')),
     FOREIGN KEY (owner_id) REFERENCES owners(owner_id)
 );
 
-CREATE TABLE berths (
+CREATE TABLE IF NOT EXISTS berths (
     berth_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    location TEXT NOT NULL,
-    max_length REAL,
-    status TEXT CHECK(status IN ('available', 'occupied')) DEFAULT 'available'
+    location TEXT NOT NULL UNIQUE,
+    max_length REAL NOT NULL CHECK(max_length > 0),
+    status TEXT DEFAULT 'available' CHECK(status IN ('available', 'occupied'))
 );
 
-CREATE TABLE services (
+CREATE TABLE IF NOT EXISTS services (
     service_id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
-    description TEXT,
-    price REAL NOT NULL
+    price REAL NOT NULL CHECK(price > 0)
 );
 
 INSERT INTO owners (name, email, phone) VALUES
