@@ -206,3 +206,125 @@ INSERT INTO services (name, price) VALUES
 ('Cambio de Motor', 500),
 ('Revisión Técnica', 220),
 ('Almacenamiento', 350);
+
+PRAGMA foreign_keys = ON;
+
+-- CONSULTAR TODOS LOS PROPIETARIOS
+SELECT 
+    owner_id AS id_propietario,
+    name AS nombre_propietario,
+    email AS correo_electronico,
+    phone AS telefono
+FROM owners;
+
+-- CONSULTAR TODOS LOS BARCOS
+SELECT 
+    boat_id AS id_barco,
+    name AS nombre_barco,
+    type AS tipo_barco,
+    length AS longitud,
+    status AS estado
+FROM boats;
+
+-- CONSULTAR TODOS LOS MUELLES
+SELECT 
+    berth_id AS id_muelle,
+    location AS ubicacion,
+    max_length AS longitud_maxima,
+    status AS estado
+FROM berths;
+
+-- CONSULTAR TODOS LOS SERVICIOS
+SELECT 
+    service_id AS id_servicio,
+    name AS nombre_servicio,
+    price AS precio
+FROM services;
+
+-- CONSULTAR BARCOS Y SUS PROPIETARIOS
+SELECT 
+    boats.name AS nombre_barco,
+    owners.name AS nombre_propietario
+FROM boats
+JOIN owners 
+ON boats.owner_id = owners.owner_id;
+
+-- CONSULTAR BARCOS MAYORES A 25 PIES
+SELECT 
+    name AS nombre_barco,
+    length AS longitud
+FROM boats
+WHERE length > 25;
+
+-- CONSULTAR BARCOS EN MANTENIMIENTO
+SELECT 
+    boat_id AS id_barco,
+    name AS nombre_barco,
+    status AS estado
+FROM boats
+WHERE status = 'maintenance';
+
+-- CONSULTAR MUELLES DISPONIBLES
+SELECT 
+    berth_id AS id_muelle,
+    location AS ubicacion,
+    status AS estado
+FROM berths
+WHERE status = 'available';
+
+-- CONSULTAR SERVICIOS CON PRECIO MAYOR A 150
+SELECT 
+    service_id AS id_servicio,
+    name AS servicio,
+    price AS precio
+FROM services
+WHERE price > 150;
+
+-- CONSULTAR SERVICIOS ORDENADOS POR PRECIO
+SELECT 
+    service_id AS id_servicio,
+    name AS nombre_servicio,
+    price AS precio
+FROM services
+ORDER BY price DESC;
+
+-- CONSULTAR BARCOS ORDENADOS POR LONGITUD
+SELECT 
+    boat_id AS id_barco,
+    name AS nombre_barco,
+    length AS longitud
+FROM boats
+ORDER BY length ASC;
+
+-- CONTAR BARCOS POR PROPIETARIO
+SELECT 
+    owners.name AS propietario,
+    COUNT(boats.boat_id) AS cantidad_barcos
+FROM owners
+LEFT JOIN boats 
+ON owners.owner_id = boats.owner_id
+GROUP BY owners.name;
+
+-- CONSULTAR EL BARCO MÁS LARGO
+SELECT 
+    name AS nombre_barco,
+    length AS longitud
+FROM boats
+ORDER BY length DESC
+LIMIT 1;
+
+-- PAGINACIÓN PRIMERA PÁGINA
+SELECT 
+    boat_id AS id_barco,
+    name AS nombre_barco,
+    type AS tipo_barco
+FROM boats
+LIMIT 5 OFFSET 0;
+
+-- PAGINACIÓN SEGUNDA PÁGINA
+SELECT 
+    boat_id AS id_barco,
+    name AS nombre_barco,
+    type AS tipo_barco
+FROM boats
+LIMIT 5 OFFSET 5;
