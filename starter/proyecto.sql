@@ -160,3 +160,49 @@ FROM boats
 ORDER BY length DESC
 LIMIT 1;
 
+-- INSERTAR MÁS PROPIETARIOS
+INSERT INTO owners (name, email, phone) VALUES
+('Felipe Navarro', 'felipe@email.com', '3021111111'),
+('Juliana Castro', 'juliana@email.com', '3022222222'),
+('Santiago Pérez', 'santiago@email.com', '3023333333'),
+('Daniela Ríos', 'daniela@email.com', '3024444444'),
+('Kevin Morales', 'kevin@email.com', '3025555555'),
+('Laura Sánchez', 'laura.s@email.com', '3026666666'),
+('Mateo Vargas', 'mateo@email.com', '3027777777'),
+('Isabella León', 'isabella@email.com', '3028888888'),
+('Tomás Herrera', 'tomas@email.com', '3029999999'),
+('Gabriela Núñez', 'gabriela@email.com', '3030000000');
+
+-- INSERTAR MÁS BARCOS
+INSERT INTO boats (name, type, length, owner_id) VALUES
+('Coral Sea', 'Yate', 31, 11),
+('Pacific Star', 'Lancha', 14, 12),
+('Blue Shark', 'Velero', 21, 13),
+('Sea Master', 'Yate', 33, 14),
+('Golden Wave', 'Lancha', 15, 15),
+('Ocean Light', 'Velero', 24, 16),
+('Silver Ocean', 'Yate', 36, 17),
+('Wind Master', 'Lancha', 16, 18),
+('Atlantic Dream', 'Velero', 23, 19),
+('Sea Dragon', 'Yate', 38, 20),
+('Marina Queen', 'Lancha', 17, 21),
+('Deep Ocean', 'Velero', 26, 22),
+('Blue Marine', 'Yate', 34, 23),
+('Storm Ocean', 'Lancha', 18, 24),
+('Royal Sea', 'Yate', 39, 25);
+
+-- INSERTAR MÁS MUELLES
+INSERT INTO berths (location, max_length, status) VALUES
+('C2', 22, 'available'),
+('D1', 28, 'occupied'),
+('D2', 32, 'available'),
+('E1', 45, 'occupied'),
+('E2', 50, 'available');
+
+-- INSERTAR MÁS SERVICIOS
+INSERT INTO services (name, price) VALUES
+('Pintura', 250),
+('Lavado Premium', 180),
+('Cambio de Motor', 500),
+('Revisión Técnica', 220),
+('Almacenamiento', 350);
