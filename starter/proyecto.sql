@@ -440,3 +440,105 @@ AND type IN ('Yate', 'Velero')
 AND name LIKE '%Sea%'
 ORDER BY length DESC;
 
+-- =====================================================
+-- SEMANA 6
+-- FUNCIONES DE AGREGACIÓN
+-- =====================================================
+
+
+-- =========================================
+-- COUNT
+-- Total de barcos registrados
+-- =========================================
+
+SELECT
+    COUNT(*) AS total_barcos
+FROM boats;
+
+
+
+-- =========================================
+-- SUM Y AVG
+-- Suma y promedio de precios
+-- de servicios
+-- =========================================
+
+SELECT
+    SUM(price) AS suma_precios,
+    AVG(price) AS promedio_precios
+FROM services;
+
+
+
+-- =========================================
+-- GROUP BY
+-- Cantidad de barcos por tipo
+-- =========================================
+
+SELECT
+    type AS tipo_barco,
+    COUNT(boat_id) AS cantidad_barcos,
+    AVG(length) AS promedio_longitud
+FROM boats
+GROUP BY type;
+
+
+
+-- =========================================
+-- GROUP BY
+-- Cantidad de barcos por estado
+-- =========================================
+
+SELECT
+    status AS estado,
+    COUNT(boat_id) AS cantidad
+FROM boats
+GROUP BY status;
+
+
+
+-- =========================================
+-- HAVING
+-- Mostrar tipos de barcos con
+-- más de 3 registros
+-- =========================================
+
+SELECT
+    type AS tipo_barco,
+    COUNT(boat_id) AS cantidad
+FROM boats
+GROUP BY type
+HAVING COUNT(boat_id) > 3;
+
+
+
+-- =========================================
+-- HAVING
+-- Servicios cuyo promedio de precio
+-- sea mayor a 200
+-- =========================================
+
+SELECT
+    name AS servicio,
+    AVG(price) AS promedio_precio
+FROM services
+GROUP BY name
+HAVING AVG(price) > 200;
+
+
+
+-- =========================================
+-- REPORTE COMPLETO
+-- Cantidad de barcos por propietario
+-- =========================================
+
+SELECT
+    owners.name AS propietario,
+    COUNT(boats.boat_id) AS total_barcos,
+    AVG(boats.length) AS promedio_longitud
+FROM owners
+LEFT JOIN boats
+ON owners.owner_id = boats.owner_id
+GROUP BY owners.name
+HAVING COUNT(boats.boat_id) >= 1
+ORDER BY total_barcos DESC;
