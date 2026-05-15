@@ -328,3 +328,115 @@ SELECT
     type AS tipo_barco
 FROM boats
 LIMIT 5 OFFSET 5;
+
+-- =====================================================
+-- SEMANA 5
+-- BETWEEN - IN - LIKE
+-- =====================================================
+
+
+-- =========================================
+-- BETWEEN
+-- Consultar barcos con longitud
+-- entre 15 y 35 pies
+-- =========================================
+
+SELECT
+    boat_id,
+    name,
+    type,
+    length
+FROM boats
+WHERE length BETWEEN 15 AND 35;
+
+
+
+-- =========================================
+-- BETWEEN
+-- Consultar servicios con precio
+-- entre 150 y 350
+-- =========================================
+
+SELECT
+    service_id,
+    name,
+    price
+FROM services
+WHERE price BETWEEN 150 AND 350;
+
+
+
+-- =========================================
+-- IN
+-- Consultar barcos tipo Yate y Velero
+-- =========================================
+
+SELECT
+    boat_id,
+    name,
+    type
+FROM boats
+WHERE type IN ('Yate', 'Velero');
+
+
+
+-- =========================================
+-- IN
+-- Consultar muelles disponibles y ocupados
+-- =========================================
+
+SELECT
+    berth_id,
+    location,
+    status
+FROM berths
+WHERE status IN ('available', 'occupied');
+
+
+
+-- =========================================
+-- LIKE
+-- Buscar barcos cuyo nombre
+-- empieza por "Sea"
+-- =========================================
+
+SELECT
+    boat_id,
+    name
+FROM boats
+WHERE name LIKE 'Sea%';
+
+
+
+-- =========================================
+-- LIKE
+-- Buscar propietarios que contienen
+-- la palabra "Torres"
+-- =========================================
+
+SELECT
+    owner_id,
+    name,
+    email
+FROM owners
+WHERE name LIKE '%Torres%';
+
+
+
+-- =========================================
+-- CONSULTA COMBINADA
+-- BETWEEN + IN + LIKE
+-- =========================================
+
+SELECT
+    boat_id,
+    name,
+    type,
+    length,
+    status
+FROM boats
+WHERE length BETWEEN 20 AND 40
+AND type IN ('Yate', 'Velero')
+AND name LIKE '%Sea%'
+ORDER BY length DESC;
+
