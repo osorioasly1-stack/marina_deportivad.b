@@ -1,4 +1,4 @@
-
+-- Crear la tabla de propietarios
 CREATE TABLE IF NOT EXISTS owners (
     owner_id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS owners (
     created_at DATE DEFAULT CURRENT_DATE
 );
 
+-- Crear la tabla de embarcaciones
 CREATE TABLE IF NOT EXISTS boats (
     boat_id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
@@ -17,6 +18,7 @@ CREATE TABLE IF NOT EXISTS boats (
     FOREIGN KEY (owner_id) REFERENCES owners(owner_id)
 );
 
+-- Crear la tabla de amarres
 CREATE TABLE IF NOT EXISTS berths (
     berth_id INTEGER PRIMARY KEY AUTOINCREMENT,
     location TEXT NOT NULL UNIQUE,
@@ -24,12 +26,14 @@ CREATE TABLE IF NOT EXISTS berths (
     status TEXT DEFAULT 'available' CHECK(status IN ('available', 'occupied'))
 );
 
+-- Crear la tabla de servicios
 CREATE TABLE IF NOT EXISTS services (
     service_id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
     price REAL NOT NULL CHECK(price > 0)
 );
 
+-- Insertar propietarios
 INSERT INTO owners (name, email, phone) VALUES
 ('Carlos Pérez', 'carlos@email.com', '3001111111'),
 ('Ana Gómez', 'ana@email.com', '3002222222'),
@@ -37,7 +41,7 @@ INSERT INTO owners (name, email, phone) VALUES
 ('María López', 'maria@email.com', '3004444444'),
 ('Jorge Ramírez', 'jorge@email.com', '3005555555');
 
-
+-- Insertar embarcaciones
 INSERT INTO boats (name, type, length, owner_id) VALUES
 ('Sea Breeze', 'Yate', 30, 1),
 ('Ocean Star', 'Lancha', 12, 2),
@@ -55,7 +59,7 @@ INSERT INTO boats (name, type, length, owner_id) VALUES
 ('Storm Rider', 'Lancha', 13, 4),
 ('Blue Horizon', 'Yate', 29, 5);
 
-
+-- Insertar amarres
 INSERT INTO berths (location, max_length, status) VALUES
 ('A1', 35, 'available'),
 ('A2', 40, 'occupied'),
@@ -63,6 +67,7 @@ INSERT INTO berths (location, max_length, status) VALUES
 ('B2', 30, 'occupied'),
 ('C1', 20, 'available');
 
+-- Insertar servicios
 INSERT INTO services (name, price) VALUES
 ('Mantenimiento', 200),
 ('Limpieza', 100),
@@ -70,21 +75,34 @@ INSERT INTO services (name, price) VALUES
 ('Inspección', 120),
 ('Combustible', 150);
 
+-- Mostrar todas las embarcaciones
 SELECT * FROM boats;
+
+-- Mostrar embarcaciones con su propietario
 SELECT boats.name AS boat, owners.name AS owner
 FROM boats
 JOIN owners ON boats.owner_id = owners.owner_id;
+
+-- Buscar embarcaciones mayores a 25 metros
 SELECT name, length
 FROM boats
 WHERE length > 25;
+
+-- Mostrar amarres disponibles
 SELECT * FROM berths
 WHERE status = 'available';
+
+-- Listar servicios por precio de mayor a menor
 SELECT * FROM services
 ORDER BY price DESC;
+
+-- Contar embarcaciones por propietario
 SELECT owners.name, COUNT(boats.boat_id) AS total_boats
 FROM owners
 LEFT JOIN boats ON owners.owner_id = boats.owner_id
 GROUP BY owners.name;
+
+-- Mostrar la embarcación más larga
 SELECT name, length
 FROM boats
 ORDER BY length DESC
