@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS services (
     price REAL NOT NULL CHECK(price > 0)
 );
 
--- INSERTAR DATOS EN OWNERS
+-- INSERTAR DATOS EN PROPIETARIOS
 INSERT INTO owners (name, email, phone) VALUES
 ('Carlos Pérez', 'carlos@email.com', '3001111111'),
 ('Ana Gómez', 'ana@email.com', '3002222222'),
@@ -54,7 +54,7 @@ INSERT INTO owners (name, email, phone) VALUES
 ('Valentina Cruz', 'valentina@email.com', '3014444444'),
 ('Ricardo León', 'ricardo@email.com', '3015555555');
 
--- INSERTAR DATOS EN BOATS
+-- INSERTAR DATOS EN BARCOS
 INSERT INTO boats (name, type, length, owner_id) VALUES
 ('Sea Breeze', 'Yate', 30, 1),
 ('Ocean Star', 'Lancha', 12, 2),
@@ -72,7 +72,7 @@ INSERT INTO boats (name, type, length, owner_id) VALUES
 ('Storm Rider', 'Lancha', 13, 9),
 ('Blue Horizon', 'Yate', 29, 10);
 
--- INSERTAR DATOS EN BERTHS
+-- INSERTAR DATOS EN MUELLES
 INSERT INTO berths (location, max_length, status) VALUES
 ('A1', 35, 'available'),
 ('A2', 40, 'occupied'),
@@ -80,7 +80,7 @@ INSERT INTO berths (location, max_length, status) VALUES
 ('B2', 30, 'occupied'),
 ('C1', 20, 'available');
 
--- INSERTAR DATOS EN SERVICES
+-- INSERTAR DATOS EN SERVICIOS
 INSERT INTO services (name, price) VALUES
 ('Mantenimiento', 200),
 ('Limpieza', 100),
@@ -112,19 +112,19 @@ WHERE boat_id = 15;
 DELETE FROM boats
 WHERE boat_id = 15;
 
--- CONSULTAR OWNERS
+-- CONSULTAR PROPIETARIOS
 SELECT owner_id, name, email, phone, created_at
 FROM owners;
 
--- CONSULTAR BOATS
+-- CONSULTAR BARCOS
 SELECT boat_id, name, type, length, owner_id, status
 FROM boats;
 
--- CONSULTAR BERTHS
+-- CONSULTAR MUELLES
 SELECT berth_id, location, max_length, status
 FROM berths;
 
--- CONSULTAR SERVICES
+-- CONSULTAR SERVICIOS
 SELECT service_id, name, price
 FROM services;
 
